@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using NewFeatureEFCore.Data;
 
 namespace NewFeatureEFCore
@@ -25,7 +26,8 @@ namespace NewFeatureEFCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+                    .LogTo(Console.WriteLine, LogLevel.Information));
             services.AddControllersWithViews();
         }
 
